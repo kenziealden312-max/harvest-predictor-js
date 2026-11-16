@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harvest Predictor AI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f5f0;
+      color: #183b2b;
+    }
+    header {
+      background: #174c35;
+      color: white;
+      padding: 25px 20px;
+    }
+    header h1 { margin: 0 0 8px; }
+    main { padding: 20px; max-width: 650px; margin: auto; }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 18px;
+      box-shadow: 0 3px 12px #0000000d;
+    }
+    label { display: block; margin: 15px 0 7px; font-weight: bold; }
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 9px;
+      border: 1px solid #ccd8ce;
+      font-size: 16px;
+    }
+    button {
+      background: #218653;
+      color: white;
+      border: 0;
+      font-weight: bold;
+      margin-top: 18px;
+    }
+    .result {
+      background: #e3f4e8;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      display: none;
+    }
+    .number { font-size: 26px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌱 Harvest Predictor AI</h1>
+    <p>Prediksi hasil panen dengan lebih mudah</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Data Lahan</h2>
+
+      <label>Nama Lahan</label>
+      <input id="nama" placeholder="Contoh: Sawah Utara">
+
+      <label>Luas Lahan (hektare)</label>
+      <input id="luas" type="number" min="0.01" step="0.01" placeholder="Contoh: 1">
+
+      <label>Jenis Tanaman</label>
+      <select id="tanaman">
+        <option value="6">Padi</option>
+        <option value="5">Jagung</option>
+        <option value="3">Kedelai</option>
+        <option value="20">Cabai</option>
+        <option value="25">Tomat</option>
+      </select>
+
+      <button onclick="prediksi()">Prediksi Hasil Panen</button>
+
+      <div class="result" id="hasil">
+        <h3>Hasil Prediksi</h3>
+        <p id="namaHasil"></p>
+        <div class="number" id="jumlah"></div>
+        <p id="keterangan"></p>
+        <small>Ini estimasi awal, bukan jaminan hasil panen.</small>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Tentang Aplikasi</h2>
+      <p>Harvest Predictor membantu petani menghitung estimasi hasil panen berdasarkan luas lahan dan jenis tanaman.</p>
+    </section>
+  </main>
+
+  <script>
+    function prediksi() {
+      const nama = document.getElementById('nama').value.trim();
+      const luas = Number(document.getElementById('luas').value);
+      const hasilPerHa = Number(document.getElementById('tanaman').value);
+
+      if (!nama || !Number.isFinite(luas) || luas <= 0) {
+        alert('Isi nama dan luas lahan dengan benar.');
+        return;
+      }
+
+      const total = luas * hasilPerHa;
+      document.getElementById('namaHasil').textContent = 'Lahan: ' + nama;
+      document.getElementById('jumlah').textContent = total.toLocaleString('id-ID') + ' ton';
+      document.getElementById('keterangan').textContent =
+        'Estimasi hasil untuk ' + luas + ' hektare.';
+      document.getElementById('hasil').style.display = 'block';
+    }
+  </script>
+</body>
+  </html>
+
+  
